@@ -24,14 +24,15 @@ exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
 # global font
 font pango:FontAwesome 9
 
-# spectacle
-bindsym Print exec spectacle
+# screenshot fullscreen background
+bindsym Print exec scrot -e 'xclip -selection clipboard -t "image/png" < $f'
 
-# spectacle fullscreen background
-bindsym Control+Print exec spectacle -c -b -f
+# screenshot selection
+bindsym Shift+Print exec escrotum -s -e 'xclip -selection clipboard -t "image/png" < $f'
+# bindsym Control+Print exec spectacle -c -b -f
 
 # spectacle rectangle background
-bindsym Shift+Print exec spectacle -c -b -r
+# bindsym Shift+Print exec spectacle -c -b -r
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -167,16 +168,16 @@ bindsym Mod1+a scratchpad show; move position center
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1 "1: Web"
+set $ws2 "2: Dev"
+set $ws3 "3: Music/Msg"
+set $ws4 "4: Extra"
+# set $ws5 "5"
+# set $ws6 "6"
+# set $ws7 "7"
+# set $ws8 "8"
+# set $ws9 "9"
+# set $ws10 "10"
 
 # switch to workspace
 bindsym Mod4+1 workspace number $ws1

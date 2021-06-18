@@ -81,8 +81,8 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Select pactl output
-bindsym $sup+comma exec --no-startup-id pactl set-default-sink alsa_output.pci-0000_09_00.3.analog-stereo
-bindsym $sup+period exec --no-startup-id pactl set-default-sink alsa_output.pci-0000_07_00.1.hdmi-stereo-extra1
+bindsym $sup+comma exec --no-startup-id ~/.config/i3/audio_output.sh 1
+bindsym $sup+period exec --no-startup-id ~/.config/i3/audio_output.sh 2
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -172,7 +172,7 @@ set $ws1 "1: Web"
 set $ws2 "2: Dev"
 set $ws3 "3: Music/Msg"
 set $ws4 "4: Extra"
-# set $ws5 "5"
+set $ws5 "5: Extra"
 # set $ws6 "6"
 # set $ws7 "7"
 # set $ws8 "8"
@@ -249,9 +249,14 @@ bindsym Mod1+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    font pango: Inconsolata for Powerline, FontAwesome 9
+    font pango: Inconsolata for Powerline, FontAwesome 10
     # font pango: FontAwesome 8, Futura Bk Bt Regular 8
     position top
+
+    # disables scroll
+    bindsym button4 nop
+    bindsym button5 nop
+
     status_command bumblebee-status \
         -m git arch-update progress cpu memory nvidiagpu nic playerctl pasink datetime \
         -p datetime.format="%A %e/%m/%Y %H:%M" \

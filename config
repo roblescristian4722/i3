@@ -1,7 +1,7 @@
 # i3 config file (v4)
 
-# low battery warning popup
-exec --no-startup-id i3-battery-popup -n -D -L 20 -l 10 
+# Gnome Terminal 
+set $term "/usr/bin/gnome-terminal"
 
 # set layout
 exec setxkbmap -layout latam
@@ -15,20 +15,24 @@ exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling En
 # picom on startup
 exec --no-startup-id picom -b
 
+# dunst
+exec --no-startup-id dunst
+
 # execute polkit on startup
 exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
 
 # global font
 font pango:FontAwesome 9
 
-# spectacle
-bindsym Print exec spectacle
+# screenshot fullscreen background
+bindsym Print exec scrot -e 'xclip -selection clipboard -t "image/png" < $f'
 
-# spectacle fullscreen background
-bindsym Control+Print exec spectacle -c -b -f
+# screenshot selection
+bindsym Shift+Print exec escrotum -s -e 'xclip -selection clipboard -t "image/png" < $f'
+# bindsym Control+Print exec spectacle -c -b -f
 
 # spectacle rectangle background
-bindsym Control+Shift+Print exec spectacle -c -b -r
+# bindsym Shift+Print exec spectacle -c -b -r
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -37,14 +41,16 @@ exec --no-startup-id nm-applet
 # startup
 # background image
 exec --no-startup-id feh --randomize --bg-scale --no-fehbg /mnt/HDD/Wallpapers/blade.runner-1920-874022.jpg
-for_window [class=".*"] border pixel 0
+for_window [title="fzf"] border pixel 0
+for_window [title=".*"] border pixel 1
+client.focused              #353439 #148BDE #7B9F35
 #hide_edge_borders both
 
 set $mod Mod1
 set $sup Mod4
 
 # gaps
-gaps inner 20
+# gaps inner 20
 bindsym $mod+plus gaps inner current plus 5
 bindsym $mod+minus gaps inner current minus 5
 bindsym $mod+Shift+plus gaps outer current plus 5
@@ -56,21 +62,27 @@ bindsym $sup+e exec nautilus
 # mouse warping
 focus_follows_mouse no
 
+# shutdown
+bindsym Control+Shift+Delete exec shutdown -h now
+
 # Lock screen
 bindsym $sup+l exec i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_wallpaper_1.png
 #exec xautolock -time 1 -locker "i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_lock.png" -notify 1 -notifier "xset dpms force off" &
 #exec xautolock -time 2 -locker "systemctl suspend" &
 
-exec s on
-exec xset s 900 1800 
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec s on
+# exec xset s 900 1800 
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_lock.png --nofork
 
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
+# Use pactl to adjust volumedioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Select pactl output
+bindsym $sup+comma exec --no-startup-id ~/.config/i3/audio_output.sh 1
+bindsym $sup+period exec --no-startup-id ~/.config/i3/audio_output.sh 2
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -93,30 +105,22 @@ set $right ntilde
 floating_modifier Mod1
 
 # start a terminal
-bindsym Mod1+Return exec i3-sensible-terminal
+bindsym Mod1+Return exec gnome-terminal
 
 # kill focused window
 bindsym Mod1+q kill
 bindsym Mod1+F4 kill
 
 # FZF
-bindsym $sup+space exec --no-startup-id i3-sensible-terminal -e "i3-dmenu-desktop --dmenu=fzf" -t "fzf"
+bindsym $sup+space exec --no-startup-id gnome-terminal -e "i3-dmenu-desktop --dmenu=fzf" -t "fzf"
 # floating dmenu
 for_window [title="fzf"] floating enable
-
-#bindsym Mod1+d exec rofi -modi drun,run -show drun
-# There also is i3-dmenu-desktop which only displays applications shipping a
-# .desktop file. It is a wrapper around dmenu, so you need that installed.
-# bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym Mod1+$left focus left
 bindsym Mod1+$down focus down
 bindsym Mod1+$up focus up
 bindsym Mod1+$right focus right
-
-# shutdown system
-bindsym Control+Shift+Delete exec shutdown -h now
 
 # alternatively, you can use the cursor keys:
 #bindsym Mod1+Left focus left
@@ -164,16 +168,16 @@ bindsym Mod1+a scratchpad show; move position center
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1 "1: Web"
+set $ws2 "2: Dev"
+set $ws3 "3: Music/Msg"
+set $ws4 "4: Extra"
+set $ws5 "5: Extra"
+# set $ws6 "6"
+# set $ws7 "7"
+# set $ws8 "8"
+# set $ws9 "9"
+# set $ws10 "10"
 
 # switch to workspace
 bindsym Mod4+1 workspace number $ws1
@@ -245,10 +249,16 @@ bindsym Mod1+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    font pango:Font Awesome, Futura Bk Bt Bold 9
+    font pango: Inconsolata for Powerline, FontAwesome 9
+    # font pango: FontAwesome 8, Futura Bk Bt Regular 8
     position top
+
+    # disables scroll
+    bindsym button4 nop
+    bindsym button5 nop
+
     status_command bumblebee-status \
-        -m git arch-update progress cpu memory nvidiagpu nic playerctl pasink bluetooth battery datetime \
-        -p datetime.format="%A %e/%m/%Y %H:%M" battery.warning=20 battery.critical=10 \
+        -m git arch-update progress cpu memory nvidiagpu nic playerctl battery pasink datetime \
+        -p datetime.format="%A %e/%m/%Y %H:%M" \
         -t dracula-powerline
 }

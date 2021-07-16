@@ -45,8 +45,8 @@ exec --no-startup-id nm-applet
 # startup
 # background image
 exec --no-startup-id feh --randomize --bg-scale --no-fehbg /mnt/HDD/Wallpapers/pape.png
-for_window [title="fzf"] border pixel 0
-for_window [title=".*"] border pixel 1
+# for_window [title="fzf"] border pixel 0
+for_window [title=".*"] border pixel 0
 client.focused              #353439 #148BDE #7B9F35
 #hide_edge_borders both
 
@@ -54,7 +54,8 @@ set $mod Mod1
 set $sup Mod4
 
 # gaps
-# gaps inner 20
+gaps inner 8
+smart_gaps on
 bindsym $mod+plus gaps inner current plus 5
 bindsym $mod+minus gaps inner current minus 5
 bindsym $mod+Shift+plus gaps outer current plus 5

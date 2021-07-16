@@ -1,0 +1,11 @@
+configuration {
+    combi-modi: "drun,script,file-browser,ssh";
+    theme: "lb";
+    font: "Hack 14";
+    modi: "combi";
+    show-icons: true;
+    terminal: "/usr/bin/gnome-terminal";
+    inactive-opacity: 0.6;
+    active-opacity: 0.6;
+    detect-rounded-corners: true;
+}

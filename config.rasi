@@ -10,6 +10,7 @@ configuration {
 	disable-history: false;
 	fullscreen: false;
 	window-thumbnail: true;
+    terminal: "gnome-terminal";
 }
 
 * {

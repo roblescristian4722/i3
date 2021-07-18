@@ -44,7 +44,7 @@ exec --no-startup-id nm-applet
 
 # startup
 # background image
-exec --no-startup-id feh --randomize --bg-scale --no-fehbg /mnt/HDD/Wallpapers/pape.png
+exec --no-startup-id feh --randomize --bg-scale --no-fehbg /mnt/HDDM/Wallpapers/pape.png
 # for_window [title="fzf"] border pixel 0
 for_window [title=".*"] border pixel 0
 client.focused              #353439 #148BDE #7B9F35
@@ -71,7 +71,7 @@ focus_follows_mouse no
 bindsym Control+Shift+Delete exec shutdown -h now
 
 # Lock screen
-bindsym $sup+l exec i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_lock.png
+bindsym $sup+l exec i3lock -t -i /mnt/HDDM/Wallpapers/blade_runner_lock.png
 #exec xautolock -time 1 -locker "i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_lock.png" -notify 1 -notifier "xset dpms force off" &
 #exec xautolock -time 2 -locker "systemctl suspend" &
 

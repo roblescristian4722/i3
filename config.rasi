@@ -32,7 +32,7 @@ window {
 	anchor: center;
 	x-offset: 0px;
 	width: 40%;
-    height: 40%;
+    height: 47%;
 	orientation: vertical;
 	border-radius: 12px;
 }

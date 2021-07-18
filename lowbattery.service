@@ -1,0 +1,10 @@
+[Unit]
+Description=Notifies if battery is low every 5 minutes
+
+[Service]
+ExecStart=/bin/bash /opt/lowbattery.sh
+OnUnitActiveSec=5m
+AccuracySec=10s
+
+[Install]
+WantedBy=multi-user.target

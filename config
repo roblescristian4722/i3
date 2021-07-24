@@ -76,7 +76,7 @@ focus_follows_mouse no
 # shutdown
 bindsym Control+Shift+Delete exec shutdown -h now
 
-bindsym $sup+l exec i3lock -t -i ~/.config/i3/lock.png
+bindsym $sup+l exec ~/.config/i3/lockscreen.sh
 #exec xautolock -time 1 -locker "i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_lock.png" -notify 1 -notifier "xset dpms force off" &
 #exec xautolock -time 2 -locker "systemctl suspend" &
 

@@ -50,7 +50,7 @@ exec --no-startup-id nm-applet
 
 # startup
 # background image
-exec --no-startup-id feh --randomize --bg-scale --no-fehbg ~/.config/i3/pape.jpg
+exec --no-startup-id feh --randomize --bg-scale --no-fehbg ~/Pictures/.wallpapers/pape.jpg
 # for_window [title="fzf"] border pixel 0
 for_window [title=".*"] border pixel 0
 client.focused              #353439 #148BDE #7B9F35

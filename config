@@ -1,7 +1,7 @@
 # i3 config file (v4)
 
-# Gnome Terminal 
-set $term "/usr/bin/gnome-terminal"
+# xfce4 Terminal 
+set $term "/usr/bin/xfce4-terminal"
 
 # Arch updates script for polybar
 exec_always --no-startup-id $HOME/.config/polybar/scripts/arch/launch.sh
@@ -28,24 +28,22 @@ exec --no-startup-id picom -b
 exec --no-startup-id dunst
 
 # execute polkit on startup
-exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
+exec_always --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
 
 # global font
 font pango:FontAwesome 9
 
 # screenshot fullscreen background clipboard
-bindsym Control+Print exec flameshot full -c
+# bindsym Control+Print exec flameshot full -c
+bindsym $mod+p exec flameshot screen -c
 
 # screenshot fullscreen background
-bindsym Print exec flameshot full -p $HOME/Pictures/Screenshots
-# bindsym Print exec scrot -e 'xclip -selection clipboard -t "image/png" < $f'
+# bindsym Print exec flameshot full -p $HOME/Pictures/Screenshots
 
 # screenshot selection
-bindsym Shift+Print exec flameshot gui
-# bindsym Shift+Print exec escrotum -s -e 'xclip -selection clipboard -t "image/png" < $f'
+bindsym $mod+Shift+p exec flameshot gui
 
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
+# Autostart nm-applet
 exec --no-startup-id nm-applet
 
 # startup
@@ -54,6 +52,9 @@ exec --no-startup-id feh --randomize --bg-scale --no-fehbg /mnt/HDDM/Wallpapers/
 # for_window [title="fzf"] border pixel 0
 for_window [title=".*"] border pixel 0
 for_window [instance="origin.exe"] floating enable
+for_window [instance="^origin.exe$" class="Wine"] floating enable, fullscreen disable
+# fix for Titanfall 2
+for_window [class="steam_app_1237970"] floating enable
 
 client.focused              #353439 #148BDE #7B9F35
 #hide_edge_borders both
@@ -88,14 +89,15 @@ bindsym $sup+l exec i3lock -t -i /mnt/HDDM/Wallpapers/blade_runner_lock.png
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_lock.png --nofork
 
 # Use pactl to adjust volumedioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Select pactl output
 bindsym $sup+comma exec --no-startup-id ~/.config/i3/audio_output.sh 1
 bindsym $sup+period exec --no-startup-id ~/.config/i3/audio_output.sh 2
+bindsym $sup+minus exec --no-startup-id ~/.config/i3/audio_output.sh 3
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -118,14 +120,14 @@ set $right ntilde
 floating_modifier Mod1
 
 # start a terminal
-bindsym Mod1+Return exec /usr/bin/gnome-terminal
+bindsym Mod1+Return exec /usr/bin/xfce4-terminal
 
 # kill focused window
 bindsym Mod1+q kill
 bindsym Mod1+F4 kill
 
 # FZF
-# bindsym $sup+space exec --no-startup-id gnome-terminal -e "i3-dmenu-desktop --dmenu=fzf" -t "fzf"
+# bindsym $sup+space exec --no-startup-id xfce4-terminal -e "i3-dmenu-desktop --dmenu=fzf" -t "fzf"
 # floating dmenu
 # for_window [title="fzf"] floating enable
 
@@ -159,10 +161,10 @@ bindsym Mod1+Shift+Up move up
 bindsym Mod1+Shift+Right move right
 
 # split in horizontal orientation
-bindsym Mod1+h split h
+bindsym Mod1+h split v
 
 # split in vertical orientation
-bindsym Mod1+v split v
+bindsym Mod1+v split h
 
 # enter fullscreen mode for the focused container
 bindsym Mod1+f fullscreen toggle
@@ -186,16 +188,27 @@ bindsym Mod1+a scratchpad show; move position center
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: Web"
+set $ws1 "1: Music/Msg"
 set $ws2 "2: Dev"
-set $ws3 "3: Music/Msg"
-set $ws4 "4: Games"
-set $ws5 "5: Extra"
-set $ws6 "6: Extra"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws3 "3: Extra"
+set $ws4 "4: Web"
+set $ws5 "5: Dev"
+set $ws6 "6: Games"
+set $ws7 "7: Extra"
+set $ws8 "8: Extra"
+set $ws9 "9: Extra"
+set $ws10 "10: Extra"
+
+workspace $ws1 output DVI-D-0
+workspace $ws2 output DVI-D-0
+workspace $ws3 output DVI-D-0
+workspace $ws4 output HDMI-1
+workspace $ws5 output HDMI-1
+workspace $ws6 output HDMI-1
+workspace $ws7 output HDMI-1
+workspace $ws8 output HDMI-1
+workspace $ws9 output HDMI-1
+workspace $ws10 output HDMI-1
 
 # switch to workspace
 bindsym Mod4+1 workspace number $ws1
@@ -239,12 +252,6 @@ bindsym Control+Shift+BackSpace exit i3
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
         bindsym $left       resize shrink width 50 px or 3 ppt
         bindsym $down       resize grow height 50 px or 3 ppt
         bindsym $up         resize shrink height 50 px or 3 ppt
